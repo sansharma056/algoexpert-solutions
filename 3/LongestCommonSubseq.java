@@ -83,10 +83,10 @@ class LongestCommonSubseq {
 
 	public static void main(String args[]) {
 		
-		/*
+		
 		String str1 = "zxvvyzw";
 		String str2 = "xkykzpw";
-		*/	
+			
 
 		/*
 		String str1 = "ABCDGH";
