@@ -1,4 +1,14 @@
 class InterweavingStrings {
+	public static boolean isPossible(String str1, String str2, String str3) {
+		if(str1.length() + str2.length() != str3.length()) {
+			return false;
+		}
+
+		Boolean memo[][] = new Boolean[str1.length()+1][str2.length()+1];
+
+		return isPossible(0, 0, str1, str2, str3, memo);
+	}
+
 	public static boolean isPossible(int i, int j, String str1, String str2, String str3, Boolean memo[][]) {
 		if(memo[i][j] != null) {
 			return memo[i][j];
@@ -35,8 +45,6 @@ class InterweavingStrings {
 		String str2 = "aaaf";
 		String str3 = "aaafaaa";
 		
-		Boolean memo[][] = new Boolean[str1.length()+1][str2.length()+1];
-
-		System.out.println(isPossible(0, 0, str1, str2, str3, memo));
+		System.out.println(isPossible(str1, str2, str3));
 	}
 }
