@@ -7,42 +7,27 @@ class LSWD {
 		if(str.length() <= 1 ) return str;
 
 		int longest[] = {0,0};
-		int maxLength  = Integer.MIN_VALUE;
 		
 		Map<Character, Integer> lastSeenAt = new HashMap<>();	
 
 		int start = 0;
 		int end = 0;
-
-		for(int i=0; i<str.length(); i++) {
-			char alphabet = str.charAt(i);
+		
+		while(end < str.length()) {
+			char alphabet = str.charAt(end);
 			
-				if(lastSeenAt.containsKey(alphabet)) {
-					int length = end-start+1;
-
-					if(length >= maxLength) {
-						maxLength = length;
-						longest[0] = start;
-						longest[1] = end;
-					}		
-					
-					if(lastSeenAt.get(alphabet) >= start) {
-						start = lastSeenAt.get(alphabet) + 1;
-					}
-
+			if(lastSeenAt.containsKey(alphabet)) {
+				start = Math.max(start, lastSeenAt.get(alphabet) + 1);
+			}
+			
+			if(end-start >= longest[1]-longest[0]) {
+				longest[0] = start;
+				longest[1] = end;
 			}
 
-			lastSeenAt.put(alphabet, i);
-			end = i;
+			lastSeenAt.put(alphabet, end);
+			end++;
 		}
-		
-		int length = end-start+1;
-
-		if(length >= maxLength) {
-			maxLength = length;
-			longest[0] = start;
-			longest[1] = end;
-		}		
 
 		return str.substring(longest[0], longest[1]+1);
 	} 
