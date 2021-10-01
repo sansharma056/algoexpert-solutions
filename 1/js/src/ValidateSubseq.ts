@@ -3,11 +3,11 @@ function validate(arr: number[], subseq: number[]): boolean {
 	i=j=0;
 
 	while(i < arr.length && j < arr.length) {
-		if(arr[i] == arr[j]) {
+		if(arr[i] == subseq[j]) {
 			j++;
 		}	
 
-		if(j == arr.length) {
+		if(j == subseq.length) {
 			return true;
 		}
 
