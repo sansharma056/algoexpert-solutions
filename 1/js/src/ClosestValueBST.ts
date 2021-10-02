@@ -1,73 +1,24 @@
-class BSTNode {
-	data: number;
-	left: BSTNode | null;
-	right: BSTNode | null;
+import {BSTNode, BST} from "./BST";
 
-	constructor(data: number) {
-		this.data = data;
-		this.left = this.right = null;
-	}
-}
+function getClosestValue(bst: BST, data: number): number {
+	let currentNode: BSTNode | null = bst.root;
+	let closest = Number.POSITIVE_INFINITY;
 
-class BST {
-	root: BSTNode | null;
+	while(currentNode != null) {
+		if(Math.abs(closest - data) > Math.abs(currentNode.data - data)) {
+			closest = currentNode.data;
+		}	
 
-	constructor() {
-		this.root = null;
-	}
-
-	insertOne(data: number) {
-		const newNode = new BSTNode(data);	
-
-		let parentNode: BSTNode | null = null;
-		let currentNode: BSTNode | null = this.root; 
-		let isLeftNode  = false;	
-
-		while(currentNode != null) {
-			parentNode = currentNode;
-			if(data < currentNode.data) {
-				isLeftNode = true;	
-				currentNode = currentNode.left;
-			} else {
-				isLeftNode = false;
-				currentNode = currentNode.right;
-			}
-		}
-		if(parentNode == null) {
-			this.root = newNode;
-		} else if(isLeftNode) {
-			parentNode.left = newNode;
-		}	else {
-			parentNode.right = newNode;
+		if(data < currentNode.data) {
+			currentNode = currentNode.left;
+		} else if(data > currentNode.data) {
+			currentNode = currentNode.right;
+		} else {
+			return data;
 		}
 	}
 
-	insertMany(dataArr: number[]) {
-		for(const data of dataArr) {
-			this.insertOne(data);
-		}
-	}
-
-	getClosestValue(data: number): number {
-		let currentNode: BSTNode | null = this.root;
-		let closest = Number.POSITIVE_INFINITY;	
-
-		while(currentNode != null) {
-			if(Math.abs(closest - data) > Math.abs(currentNode.data - data)) {
-				closest = currentNode.data; 
-			}	
-
-			if(data < currentNode.data) {
-				currentNode = currentNode.left;
-			} else if(data > currentNode.data) {
-				currentNode = currentNode.right;
-			} else {
-				return data;
-			}
-		}
-
-		return closest;
-	}
+	return closest;
 }
 
 (function main() {
@@ -76,5 +27,5 @@ class BST {
 
 	bst.insertMany([10, 5, 15, 2, 6, 13, 22, 14]);
 
-	console.log(bst.getClosestValue(data));
+	console.log(getClosestValue(bst, data));
 })();
