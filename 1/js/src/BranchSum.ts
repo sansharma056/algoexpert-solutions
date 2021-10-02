@@ -1,16 +1,38 @@
-import {BSTNode, BST} from "./BST";
+import {TreeNode, Tree} from "./Tree";
 	
-function getBranchSums(bst: BST): number[] {
+function getBranchSums(tree: Tree): number[] {
 	let res: number[]= [];
-	res.push(10);
-
+	
+	if(tree.root != null) {
+		getBranchSumsHelper(tree.root, 0, res);
+	}
+	
 	return res;
 }
 
+function getBranchSumsHelper(root: TreeNode, sum: number, res: number[]) {
+	sum += root.data;
+
+	if(root.left == null && root.right == null) {
+		res.push(sum);	
+		return;
+	} 
+
+	if(root.left != null) {
+		getBranchSumsHelper(root.left, sum, res);
+	} 
+
+	if(root.right != null) {
+		getBranchSumsHelper(root.right, sum, res);	
+	}
+}
+
 (function main() {
-	const bst = new BST();
+	const tree = new Tree();
+		
+	for(let i=1; i<=10; i++) {
+		tree.insertOne(i);
+	}
 
-	bst.insertMany([10, 5, 15, 2, 6, 13, 22, 14]);
-
-	console.log(getBranchSums(bst));
+	console.log(getBranchSums(tree));
 })();
