@@ -11,14 +11,14 @@ class TreeNode {
 
 class Tree {
 	root: TreeNode | null;
-	
+
 	constructor() {
 		this.root = null;
 	}
 
 	insertOne(data: number) {
 		const newNode = new TreeNode(data);
-		
+
 		if(this.root == null) {
 			this.root = newNode;
 			return;
@@ -29,14 +29,14 @@ class Tree {
 
 		while(queue.length != 0) {
 			const currentNode: TreeNode = queue.shift()!;
-			
+
 			if(currentNode.left == null) {
 				currentNode.left = newNode;
 				return;
 			} else {
 				queue.push(currentNode.left);
 			}
-			
+
 			if(currentNode.right == null) {
 				currentNode.right = newNode;
 				return;

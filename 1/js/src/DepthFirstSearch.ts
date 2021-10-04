@@ -1,8 +1,8 @@
 import {Vertex, Graph} from "./Graph";
 
 function dfs(graph: Graph<string>): string[] {
-	let vertices: string[] = [];	
-	
+	let vertices: string[] = [];
+
 	const root = graph.getVertexByData("A");
 	if(root != null) {
 		dfsHelper(root, vertices);
@@ -13,15 +13,15 @@ function dfs(graph: Graph<string>): string[] {
 
 function dfsHelper(vertex: Vertex<string>, vertices: string[]): void {
 	vertices.push(vertex.data);
-	
+
 	for(const child of vertex.children) {
 		dfsHelper(child, vertices);
 	}
 }
 
 (function main() {
-	const graph: Graph<string> = new Graph<string>();	
-	
+	const graph: Graph<string> = new Graph<string>();
+
 	graph.addEdge("A", "B");
 	graph.addEdge("A", "C");
 	graph.addEdge("A", "D");
@@ -37,6 +37,6 @@ function dfsHelper(vertex: Vertex<string>, vertices: string[]): void {
 	graph.addEdge("F", "J");
 
 	graph.addEdge("G", "K");
-	
+
 	console.log(dfs(graph));
 })();
