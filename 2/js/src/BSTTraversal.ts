@@ -54,11 +54,13 @@ function postorderHelper(root: BSTNode | null, result: number[]) {
 	result.push(root.data);
 }
 
-(function main() {
-	const bst = new BST();
-	bst.insertMany([10,5,15,2,5,1,22]);
+// (function main() {
+// 	const bst = new BST();
+// 	bst.insertMany([10,5,15,2,5,1,22]);
 
-	console.log("inorder:", inorder(bst));
-	console.log("preorder:", preorder(bst));
-	console.log("postorder:", postorder(bst));
-})();
+// 	console.log("inorder:", inorder(bst));
+// 	console.log("preorder:", preorder(bst));
+// 	console.log("postorder:", postorder(bst));
+// })();
+
+export {preorder, inorder, postorder};
