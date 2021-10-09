@@ -3,37 +3,34 @@ import java.util.LinkedList;
 import java.util.List;
 
 class Permutations {
-	
-	public static List<List<Integer>> getPermutations(int arr[]) {
-		boolean selected[] = new boolean[arr.length];
-		List<Integer> permutation = new ArrayList<>();	
+
+	public static List<List<Integer>> getPermutations(Integer arr[]) {
 		List<List<Integer>> res = new ArrayList<>();
-
-		getPermutation(arr, selected, permutation, res);
-
+		getPermutationsHelper(0, arr, res);
 		return res;
 	}
-	
-	public static void getPermutation(int arr[], boolean selected[], List<Integer> permutation, List<List<Integer>> res) {
-		if(permutation.size() == arr.length) {
-			res.add(new ArrayList<>(permutation));	
+
+	public static void getPermutationsHelper(int i, Integer arr[], List<List<Integer>> res) {
+		if(i == arr.length - 1) {
+			res.add(List.of(arr.clone()));
 			return;
 		}
 
-		for(int i=0; i<arr.length; i++) {
-			if(!selected[i]) {
-				selected[i] = true;
-				permutation.add(arr[i]);
-				getPermutation(arr, selected, permutation, res);
-				selected[i] = false;
-				permutation.remove(permutation.size()-1);
-			}
+		for(int j=i; j<arr.length; j++) {
+			swap(i, j, arr);
+			getPermutationsHelper(i+1, arr, res);
+			swap(i, j, arr);
 		}
+	}
 
+	public static void swap(int i, int j, Integer arr[]) {
+		int temp = arr[i];
+		arr[i] = arr[j];
+		arr[j] = temp;
 	}
 
 	public static void main(String args[]) {
-		int arr[] = {1,2,3};
-		System.out.println(getPermutations(arr));	
+		Integer arr[] = {1,2,3};
+		System.out.println(getPermutations(arr));
 	}
 }
