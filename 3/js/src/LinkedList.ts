@@ -12,8 +12,17 @@ class LinkedList {
 	head: ListNode | null;
 	tail: ListNode | null;
 
-	constructor() {
-		this.head = this.tail = null;
+	constructor(head?: ListNode | null) {
+		if (head == undefined) {
+			this.head = this.tail = null;
+			return;
+		}
+
+		this.head = this.tail = head;
+
+		while (this.tail != null) {
+			this.tail = this.tail.next;
+		}
 	}
 
 	getByValue(data: number): ListNode | null {
