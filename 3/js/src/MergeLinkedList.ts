@@ -1,11 +1,14 @@
-import {ListNode, LinkedList} from "./LinkedList";
+import { ListNode, LinkedList } from "./LinkedList";
 
-function mergeLinkedList(list1: LinkedList, list2: LinkedList): ListNode | null {
-	if(list1.head == null) {
+function mergeLinkedList(
+	list1: LinkedList,
+	list2: LinkedList
+): ListNode | null {
+	if (list1.head == null) {
 		return list2.head;
 	}
 
-	if(list2.head == null) {
+	if (list2.head == null) {
 		return list1.head;
 	}
 
@@ -13,12 +16,12 @@ function mergeLinkedList(list1: LinkedList, list2: LinkedList): ListNode | null 
 	let p2: ListNode | null = list2.head;
 	let prev: ListNode | null = null;
 
-	while(p1 != null && p2 != null) {
-		if(p1.data < p2.data) {
+	while (p1 != null && p2 != null) {
+		if (p1.data < p2.data) {
 			prev = p1;
 			p1 = p1.next;
-		}	else {
-			if(prev != null) {
+		} else {
+			if (prev != null) {
 				prev.next = p2;
 			}
 
@@ -28,7 +31,7 @@ function mergeLinkedList(list1: LinkedList, list2: LinkedList): ListNode | null 
 		}
 	}
 
-	if(prev != null) {
+	if (prev != null) {
 		prev.next = p2;
 	}
 
@@ -39,8 +42,8 @@ function mergeLinkedList(list1: LinkedList, list2: LinkedList): ListNode | null 
 	const list1 = new LinkedList();
 	const list2 = new LinkedList();
 
-	[2,6,7,8].forEach(i => list1.insertEnd(i));
-	[1,3,4,5,9,10].forEach(i => list2.insertEnd(i));
+	[2, 6, 7, 8].forEach((i) => list1.insertEnd(i));
+	[1, 3, 4, 5, 9, 10].forEach((i) => list2.insertEnd(i));
 
 	const list3 = new LinkedList(mergeLinkedList(list1, list2));
 	console.log(list3.toString());
