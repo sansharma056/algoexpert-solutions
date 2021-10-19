@@ -47,13 +47,16 @@ class LinkedList {
 		this.tail = newNode;
 	}
 
-	print() {
+	toString() {
+		let res = "";
 		let cur = this.head;
 
 		while (cur != null) {
-			console.log(cur.data);
+			res += cur.data + " ";
 			cur = cur.next;
 		}
+
+		return res;
 	}
 }
 
