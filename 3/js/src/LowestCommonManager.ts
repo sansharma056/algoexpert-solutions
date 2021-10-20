@@ -22,29 +22,37 @@ class OrgInfo {
 	}
 }
 
-function lowestCommonManager(topMostManager: OrgChart, report1: OrgChart, report2: OrgChart) {
+function lowestCommonManager(
+	topMostManager: OrgChart,
+	report1: OrgChart,
+	report2: OrgChart
+) {
 	return getOrgInfo(topMostManager, report1, report2).lowestCommonManager;
 }
 
-function getOrgInfo(topMostManager: OrgChart, report1: OrgChart, report2: OrgChart): OrgInfo {
+function getOrgInfo(
+	topMostManager: OrgChart,
+	report1: OrgChart,
+	report2: OrgChart
+): OrgInfo {
 	let numOfImpReports = 0;
 
-	for(const directReport of topMostManager.directReports) {
+	for (const directReport of topMostManager.directReports) {
 		const orgInfo = getOrgInfo(directReport, report1, report2);
 
-		if(orgInfo.lowestCommonManager != null) {
+		if (orgInfo.lowestCommonManager != null) {
 			return orgInfo;
 		}
 
 		numOfImpReports += orgInfo.numOfImpReports;
 	}
 
-	if(topMostManager == report1 || topMostManager == report2) {
+	if (topMostManager == report1 || topMostManager == report2) {
 		numOfImpReports++;
 	}
 
 	const orgInfo = new OrgInfo(numOfImpReports, null);
-	if(numOfImpReports == 2) {
+	if (numOfImpReports == 2) {
 		orgInfo.lowestCommonManager = topMostManager;
 	}
 
