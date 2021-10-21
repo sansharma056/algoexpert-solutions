@@ -1,41 +1,39 @@
 import java.util.Arrays;
 class SearchForRange {
-	public static int solve(int arr[], int first, int last, int range[], int target) {
-		if(first > last) {
-			return -1;
-		}
+	public static void solve(int arr[], int first, int last, int range[], int target, boolean goLeft) {
+		while(first <= last) {
+			int mid = (first+last) / 2;
 
-		int mid = (first+last) / 2;
-
-		if(arr[mid] == target) {
-			if( (mid-1 == -1 || arr[mid-1] != target) && (mid+1 == arr.length || arr[mid+1] != target)) {
-				range[0] = range[1] = mid;
-			} else if(mid-1 == -1 || arr[mid-1] != target) {
-					range[0] = mid;
-					solve(arr, mid+1, last, range, target );
-			} else if(mid+1 == arr.length || arr[mid+1] != target) {
-					range[1] = mid;
-					solve(arr, first, mid-1, range, target);
+			if (target < arr[mid]) {
+				last = mid -1;
+			} else if (target > arr[mid]) {
+				first = mid + 1;
 			} else {
-					solve(arr, first, mid-1, range, target);
-					solve(arr, mid+1, last, range, target);
+				if(goLeft) {
+					if(mid == 0 || arr[mid-1] != arr[mid]) {
+						range[0] = mid;
+						return;
+					}	else {
+						last = mid - 1;
+					}
+				}	else {
+					if(mid == arr.length-1 || arr[mid+1] != arr[mid]) {
+						range[1] = mid;
+						return;
+					} else {
+						first = mid + 1;
+					}
+				}
 			}
-			return mid;
-		}	else if(target < arr[mid]) {
-				return solve(arr, first, mid-1, range, target);
-		} else {
-				return solve(arr, mid+1, last, range, target);
 		}
-
 	}
 
-	public static int[] solve(int arr[], int target) {
-		int range[] = new int[2];
 
-		int pos = solve(arr, 0, arr.length-1, range, target);
-		if(pos == -1) {
-			return new int[]{-1, -1};
-		}
+	public static int[] solve(int arr[], int target) {
+		int range[] = {-1,-1};
+
+		solve(arr, 0, arr.length-1, range, target, true);
+		solve(arr, 0, arr.length-1, range, target, false);
 
 		return range;
 	}
